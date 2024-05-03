@@ -1,14 +1,25 @@
 import { Answer } from "../entities/answer"
+import { AnswerRepository } from "../repositories/answers-repositories"
 
-interface AnswerQuestionRequest {
+interface AnswerQuestionUseCaseRequest {
     instructorId: string
     questionId: string 
     content: string
 }
 
 export class AnswerQuestion {
-    execute({ instructorId, questionId, content }: AnswerQuestionRequest) {
-     const answer = new Answer(content)
+    constructor(
+        private answersRepository: AnswerRepository
+    ) {} 
+
+    async execute({ instructorId, questionId, content }: AnswerQuestionUseCaseRequest) {
+     const answer = new Answer({
+        content,
+        authorId: instructorId,
+        questionId
+     })
+
+     await this.answersRepository.create(answer)
 
      return answer
     }
