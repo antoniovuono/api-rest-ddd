@@ -1,21 +1,19 @@
-import { AnswerQuestion } from "./answer-question"
-import { AnswerRepository } from "../repositories/answers-repositories"
-import { Answer } from "../entities/answer"
+import { AnswerQuestion } from './answer-question'
+import { AnswerRepository } from '../repositories/answers-repositories'
+import { Answer } from '../entities/answer'
 
 const fakeAnswerRepository: AnswerRepository = {
-    create: async (answer: Answer) => {
-      return
-    }
+  create: async (answer: Answer) => {},
 }
 
-test('create an answer',async  () => {
-    const answerQuestion = new AnswerQuestion(fakeAnswerRepository)
+test('create an answer', async () => {
+  const answerQuestion = new AnswerQuestion(fakeAnswerRepository)
 
-    const answer = await answerQuestion.execute({
-        instructorId: '123',
-        questionId: '456',
-        content: 'Answer content'
-    })
+  const answer = await answerQuestion.execute({
+    instructorId: '123',
+    questionId: '456',
+    content: 'Answer content',
+  })
 
-    expect(answer.content).toBe('Answer content')
+  expect(answer.content).toBe('Answer content')
 })
